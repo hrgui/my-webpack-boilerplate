@@ -2,13 +2,14 @@ import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import "./App.css";
 import CssModulesTest from "./components/CssModulesTest";
+import TailwindTest from "./components/TailwindTest";
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     <div className="App">
-      <div>
+      <div className="flex justify-center items-center">
         <a href="https://webpack.js.org/" target="_blank">
           <img src="/webpack.svg" className="logo" alt="Webpack logo" />
         </a>
@@ -19,12 +20,13 @@ function App() {
       <h1>Webpack + React</h1>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
-        <p>
+        <p className="mt-4">
           Edit <code>src/App.tsx</code> to see the changes.
         </p>
       </div>
-      <p className="read-the-docs">Click on the Webpack and React logos to learn more</p>
+      <p className="read-the-docs mb-4">Click on the Webpack and React logos to learn more</p>
       <CssModulesTest />
+      <TailwindTest />
     </div>
   );
 }
