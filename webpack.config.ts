@@ -15,7 +15,7 @@ const config = (webpackEnv: { [name: string]: string }): webpack.Configuration =
     mode: (process.env.NODE_ENV as webpack.Configuration["mode"]) || "development",
     entry: paths.appSrc,
     output: {
-      filename: "main.js",
+      filename: "[name].[contenthash:8].js",
       path: path.resolve(__dirname, "dist"),
       clean: true, // cleans up the output folder before build
       publicPath: paths.publicUrlOrPath,
