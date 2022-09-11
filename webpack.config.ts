@@ -18,11 +18,13 @@ const config = (webpackEnv: { [name: string]: string }): webpack.Configuration =
       filename: "main.js",
       path: path.resolve(__dirname, "dist"),
       clean: true, // cleans up the output folder before build
+      publicPath: paths.publicUrlOrPath,
     },
     devtool: "inline-source-map",
     devServer: {
       static: {
         directory: paths.appPublic,
+        publicPath: [paths.publicUrlOrPath],
       },
       hot: true,
     },

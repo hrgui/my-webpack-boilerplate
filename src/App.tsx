@@ -11,7 +11,7 @@ function App() {
     <div className="App">
       <div className="flex justify-center items-center">
         <a href="https://webpack.js.org/" target="_blank">
-          <img src="/webpack.svg" className="logo" alt="Webpack logo" />
+          <img src="webpack.svg" className="logo" alt="Webpack logo" />
         </a>
         <a href="https://reactjs.org" target="_blank">
           <img src={reactLogo} className="logo react" alt="React logo" />
