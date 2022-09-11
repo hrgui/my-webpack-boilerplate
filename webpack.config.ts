@@ -2,14 +2,7 @@ import * as path from "path";
 import * as webpack from "webpack";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import "webpack-dev-server";
-import fs from "fs";
-
-const appDirectory = fs.realpathSync(process.cwd());
-const resolveApp = (relativePath: string) => path.resolve(appDirectory, relativePath);
-
-const paths = {
-  appHtml: resolveApp("public/index.html"),
-};
+import { paths, moduleFileExtensions } from "./config/paths";
 
 const config: webpack.Configuration = {
   mode: (process.env.NODE_ENV as webpack.Configuration["mode"]) || "development",
@@ -21,7 +14,9 @@ const config: webpack.Configuration = {
   },
   devtool: "inline-source-map",
   devServer: {
-    static: "./dist",
+    static: {
+      directory: paths.appPublic,
+    },
     hot: true,
   },
   plugins: [
@@ -53,6 +48,9 @@ const config: webpack.Configuration = {
         type: "asset/resource",
       },
     ],
+  },
+  resolve: {
+    extensions: moduleFileExtensions.map((ext) => `.${ext}`),
   },
 };
 
