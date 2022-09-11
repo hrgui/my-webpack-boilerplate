@@ -2,10 +2,18 @@ import * as path from "path";
 import * as webpack from "webpack";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import "webpack-dev-server";
+import fs from "fs";
+
+const appDirectory = fs.realpathSync(process.cwd());
+const resolveApp = (relativePath: string) => path.resolve(appDirectory, relativePath);
+
+const paths = {
+  appHtml: resolveApp("public/index.html"),
+};
 
 const config: webpack.Configuration = {
   mode: (process.env.NODE_ENV as webpack.Configuration["mode"]) || "development",
-  entry: "./src/index.js",
+  entry: "./src/index.tsx",
   output: {
     filename: "main.js",
     path: path.resolve(__dirname, "dist"),
@@ -18,11 +26,20 @@ const config: webpack.Configuration = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: "Output Management",
+      inject: true,
+      template: paths.appHtml,
     }),
   ],
   module: {
     rules: [
+      {
+        test: /\.tsx?$/,
+        loader: "esbuild-loader",
+        options: {
+          loader: "tsx", // Or 'ts' if you don't need tsx
+          target: "es2015",
+        },
+      },
       {
         test: /\.css$/i,
         use: ["style-loader", "css-loader"],
