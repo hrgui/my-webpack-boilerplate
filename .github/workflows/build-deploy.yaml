@@ -25,7 +25,10 @@ jobs:
         uses: bahmutov/npm-install@v1
 
       - name: ⚙️ Build
-        run: PUBLIC_URL="/my-webpack-boilerplate/" yarn build
+        run: yarn build
+        env:
+          PUBLIC_URL: "/my-webpack-boilerplate/"
+          NODE_ENV: "production"
 
       - name: ⚙️ Setup Pages
         if: success()

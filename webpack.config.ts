@@ -2,6 +2,7 @@ import * as path from "path";
 import * as webpack from "webpack";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import CopyPlugin from "copy-webpack-plugin";
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import "webpack-dev-server";
 
 import { paths, moduleFileExtensions } from "./config/paths";
@@ -44,7 +45,14 @@ const config = (webpackEnv: { [name: string]: string }): webpack.Configuration =
           },
         ],
       }),
-    ],
+      isEnvProduction() &&
+        new MiniCssExtractPlugin({
+          // Options similar to the same options in webpackOptions.output
+          // both options are optional
+          filename: "static/css/[name].[contenthash:8].css",
+          chunkFilename: "static/css/[name].[contenthash:8].chunk.css",
+        }),
+    ].filter(Boolean) as webpack.Configuration["plugins"],
     module: {
       rules: [
         {
