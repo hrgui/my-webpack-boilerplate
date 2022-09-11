@@ -1,6 +1,7 @@
 import * as path from "path";
 import * as webpack from "webpack";
 import HtmlWebpackPlugin from "html-webpack-plugin";
+import CopyPlugin from "copy-webpack-plugin";
 import "webpack-dev-server";
 
 import { paths, moduleFileExtensions } from "./config/paths";
@@ -29,6 +30,17 @@ const config = (webpackEnv: { [name: string]: string }): webpack.Configuration =
       new HtmlWebpackPlugin({
         inject: true,
         template: paths.appHtml,
+      }),
+      new CopyPlugin({
+        patterns: [
+          {
+            from: paths.appPublic + "**/*",
+            to: "[name][ext]",
+            globOptions: {
+              ignore: ["**/index.html"],
+            },
+          },
+        ],
       }),
     ],
     module: {
