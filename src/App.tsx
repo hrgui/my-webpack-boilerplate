@@ -3,12 +3,14 @@ import reactLogo from "./assets/react.svg";
 import "./App.css";
 import CssModulesTest from "./components/CssModulesTest";
 import TailwindTest from "./components/TailwindTest";
+import { helloWorld } from "@hrgui/ts-only-module";
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     <div className="App">
+      {helloWorld()}
       <div className="flex justify-center items-center">
         <a href="https://webpack.js.org/" target="_blank">
           <img src="webpack.svg" className="logo" alt="Webpack logo" />
