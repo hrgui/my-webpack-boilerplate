@@ -9,6 +9,12 @@ import { paths, moduleFileExtensions } from "./config/paths";
 import { getStyleLoaders } from "./config/loaders";
 import { isEnvDevelopment, isEnvProduction, shouldUseSourceMap } from "./config/env";
 
+function decorateWithPlatform(platform: string, currentExtensions: string[]) {
+  return currentExtensions.flatMap((ext) => [`.${platform}${ext}`, `${ext}`]);
+}
+
+const platform = process.env.PLATFORM || "web";
+
 const config = (webpackEnv: { [name: string]: string }): webpack.Configuration => {
   console.log(`webpackEnv:`, webpackEnv);
 
@@ -102,7 +108,15 @@ const config = (webpackEnv: { [name: string]: string }): webpack.Configuration =
       ],
     },
     resolve: {
-      extensions: moduleFileExtensions.map((ext) => `.${ext}`),
+      extensions: decorateWithPlatform(platform, [
+        ".mjs",
+        ".js",
+        ".mts",
+        ".ts",
+        ".jsx",
+        ".tsx",
+        ".json",
+      ]),
     },
   };
 };
